@@ -50,14 +50,14 @@ router.get('/failLogin', (req, res) => {
 })
 
 // Cerrar Session
-router.get('/logout', (req, res) => {
+/*router.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if(err) {
             console.log(err);
             res.status(500).render('errors/base', {error: err})
         } else res.redirect('/session/login')
     })
-})
+})*/
 
 //GitHub
 router.get('/github', passport.authenticate('github', { scope: ["user:email"] }), (req, res) => { })
@@ -66,7 +66,15 @@ router.get('/githubcallback',
     passport.authenticate('github', { failureRedirect: 'session/login' }),
     async (req, res) => {
         req.session.user = req.user
-        res.redirect('/')
+        res.redirect('/session')
     })
+
+//Logout
+router.get('/logout', function (req, res) {
+    req.logout(function(err) {
+        if(err) { return res.send({error: 'error al logout'});}
+        res.redirect('session/login'); 
+    })
+});
 
 export default router

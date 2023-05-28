@@ -1,3 +1,6 @@
+import express from "express";
+import session from "express-session";
+
 import passport from "passport"
 import local from 'passport-local'
 import GitHubStrategy from 'passport-github2'
@@ -68,9 +71,7 @@ const initializePassport = () => {
             return done ('Error to login with GitHub')
         }
     }))  
-
-
-//Github
+//fin Github
 
     passport.serializeUser((user, done) => {
         done(null, user._id)
