@@ -5,6 +5,8 @@ import passport from "passport"
 
 const router = Router()
 
+router.get('/', (req, res) => res.render('index'))
+
 //Vista para registrar usuarios
 router.get('/register', (req, res) => {
     res.render('sessions/register')
@@ -57,6 +59,14 @@ router.get('/logout', (req, res) => {
     })
 })
 
+//GitHub
+router.get('/github', passport.authenticate('github', { scope: ["user:email"] }), (req, res) => { })
 
+router.get('/githubcallback',
+    passport.authenticate('github', { failureRedirect: 'session/login' }),
+    async (req, res) => {
+        req.session.user = req.user
+        res.redirect('/')
+    })
 
 export default router

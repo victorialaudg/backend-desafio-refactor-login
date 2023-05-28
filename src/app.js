@@ -9,6 +9,8 @@ import run from "./run.js";
 import passport from 'passport'
 import initializePassport from "./passport.config.js";
 
+import sessionRouter from './routes/session.router.js';
+
 const app = express()
 
 app.use(express.json())
@@ -17,6 +19,9 @@ app.use(express.static(__dirname + "/public"))
 app.engine("handlebars", handlebars.engine())
 app.set("views", __dirname + "/views")
 app.set("view engine", "handlebars")
+
+app.use('/session', sessionRouter)
+app.get('/', (req,res) => res.send('Home'))
 
 //const MONGO_URI = "mongodb://127.0.0.1:27017"
 const MONGO_URI = "mongodb+srv://coder:coder@backend39755.v9fwrug.mongodb.net/"
@@ -49,3 +54,13 @@ mongoose.connect(MONGO_URI, {
 
     run(socketServer, app)
 })
+
+
+
+/*
+mongoose.set('strictQuery')
+try {
+    await mongoose.connect(MONGO_URI, { dbName: MONGO_DB_NAME })
+    app.listen(8080, () => console.log('Server Up'))
+} catch(err) {}
+*/
