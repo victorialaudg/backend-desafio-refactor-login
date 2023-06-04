@@ -15,12 +15,13 @@ socket.on('updatedProducts', data => {
         for (product of data) {
             let tr = document.createElement('tr')
             tr.innerHTML=
-                        `   <td>${product.title}</td>
-                            <td>${product.description}</td>
-                            <td>${product.price}</td>
+                        `   <td><img src="${product.photo}" alt="" width="85" /></td>
+                            <td>${product.name}</td>
+                            <td>${product.type}</td>
                             <td>${product.code}</td>
                             <td>${product.stock}</td>
                             <td>${product.category}</td>
+                            <td>${product.price}</td>
                         `;
             table.getElementsByTagName('tbody')[0].appendChild(tr);
         }

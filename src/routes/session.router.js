@@ -25,7 +25,7 @@ router.get('/failRegister', (req, res) => {
 
 // Vista de Login
 router.get('/login', (req, res) => {
-    res.render('sessions/login')
+   res.render('sessions/login')
 })
 
 // API para login
