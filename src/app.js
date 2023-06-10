@@ -20,8 +20,6 @@ app.engine("handlebars", handlebars.engine())
 app.set("views", __dirname + "/views")
 app.set("view engine", "handlebars")
 
-app.use('/session', sessionRouter)
-app.get('/', (req,res) => res.send('Home'))
 
 //const MONGO_URI = "mongodb://127.0.0.1:27017"
 const MONGO_URI = "mongodb+srv://coder:coder@backend39755.v9fwrug.mongodb.net/"
@@ -37,9 +35,14 @@ app.use(session({
     saveUninitialized: true
 }))
 
+
+
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use('/session', sessionRouter)
+app.get('/', (req,res) => res.send('Home'))
 
 mongoose.connect(MONGO_URI, {
     dbName: MONGO_DB_NAME
